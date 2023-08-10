@@ -1,0 +1,113 @@
+::selection{
+    background-color: #ef8e38;
+    color: black;
+}
+
+@font-face {
+    font-family: "regular";
+    src: url(./RedHatDisplay-Medium.otf);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    margin: 0;
+    font-family: "regular" !important;
+    background-image: linear-gradient(to right, #108dc7, #ef8e38);
+}
+
+footer > b {
+    font-size: 2vh;
+}
+
+header , footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5.5vh;
+    font-size: 2.5vh;
+    background-color: #9DADBC;
+}
+
+header {
+    height: 8vh;
+}
+
+.pl{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
+    width: 380px;
+    height: 80px;
+    box-sizing: border-box;
+    border: 6px rgb(83, 58, 38) solid;
+    border-radius: 20px;
+    box-shadow: 6px 6px 10px black;
+    background-color: #b04e34;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 70%;
+    border: 0.8vh rgb(83, 58, 38) solid;
+    background-color: rgba(149, 104, 70, 0.75);
+    border-radius: 3vh;
+    box-shadow: 1vh 1vh 1.5vh black;
+}
+
+main > div{
+    flex-grow: 1;
+    background-color: green;
+}
+
+main > div:nth-child(2n){
+    background-color: red;
+}
+
+header > div:last-child{
+    display: flex;
+    align-items: center;
+    height: 60%;
+    border-radius: 3vh;
+    background-color: aliceblue;
+    border: 0.4vh #533a26 solid;
+    overflow: hidden;
+}
+
+header > div:last-child > input{
+    width: 80%;
+    height: 100%;
+    padding-left: 1vh;
+    color: #533a26;
+    font-size: 2.3vh;
+    font-family: "regular";
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+input::placeholder{
+    color: #533a26;
+}
+
+::-webkit-search-cancel-button{
+    display: none;
+}
+
+header > div:last-child > button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vh;
+    width: 20%;
+    border: none;
+    background-color: transparent;
+    height: 100%;
+    padding: 0;
+}
