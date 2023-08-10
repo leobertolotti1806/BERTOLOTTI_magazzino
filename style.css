@@ -152,18 +152,33 @@ main{
 
 main > div:first-child{
     display: flex;
-    width: 100%;
-    min-height: 7vh;
     background-color: aliceblue;
 }
 
-main > div:first-child > div{
+main > div:first-child > #space{
+    width: 1.1vh;
+    height: 100%;
+    border: none;
+}
+
+main > div:first-child > div:first-child{
+    display: flex;
+    width: 100%;
+    min-height: 7vh;
+}
+
+main > div:first-child > div:first-child > div{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 20%;
+    box-sizing: border-box;
     font-size: 2.5vh;
     border-right: 0.4vh #533a26 solid;
+}
+
+main > div:first-child > div:first-child > div:last-child{
+    border: none;
 }
 
 main > div:last-child{
@@ -191,16 +206,13 @@ main > div:last-child > div > div{
     align-items: center;
     justify-content: center;
     border-right: 0.4vh #533a26 solid;
-    box-sizing: border-box;
-    width: calc(20% + 0.6vh);
+    width: 20%;
     height: 100%;
 }
 
 main > div:last-child > div > div:last-child{
-    width: 17%;
     justify-content: space-evenly;
     border: none;
-    background-color: rebeccapurple;
 }
 
 main button{
@@ -221,6 +233,10 @@ main button{
 main button:hover{
     border-color: #F79334;
     color: #F79334;
+}
+
+@media screen and (max-width: 940px) {
+    
 }
 
 @media screen and (max-width: 768px) {
