@@ -3,6 +3,25 @@
     color: black;
 }
 
+::-webkit-scrollbar {
+    width: 1.5vh;
+}
+  
+::-webkit-scrollbar-track {
+    background-color: rgb(230, 230, 230);
+    border-left: 0.2vh black solid;
+}
+   
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(#64bbec, #e20fe7);
+    border-radius: 1vh;
+    border: 0.1vh rgb(6, 6, 6) solid;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(#3c80a8, #ac08af);
+}
+
 @font-face {
     font-family: "regular";
     src: url(./RedHatDisplay-Medium.otf);
@@ -124,41 +143,92 @@ main{
     flex-direction: column;
     width: 80%;
     max-height: 70%;
-    min-height: 70%;
+    min-height: fit-content;
     border: 0.8vh rgb(83, 58, 38) solid;
     border-radius: 3vh;
     box-shadow: 1vh 1vh 1.5vh black;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 main > div:first-child{
+    display: flex;
     width: 100%;
     min-height: 7vh;
     background-color: aliceblue;
+}
+
+main > div:first-child > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    font-size: 2.5vh;
+    border-right: 0.4vh #533a26 solid;
 }
 
 main > div:last-child{
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 main > div:last-child > div{
-    background-color: #B88865;
+    display: flex;
     width: 100%;
     min-height: 7vh;
+    box-sizing: border-box;
+    max-height: 100vh !important;
+    background-color: #B88865;
 }
 
 main > div:last-child > div:nth-child(2n){
     background-color: #956846;
 }
+
+main > div:last-child > div > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 0.4vh #533a26 solid;
+    box-sizing: border-box;
+    width: calc(20% + 0.6vh);
+    height: 100%;
+}
+
+main > div:last-child > div > div:last-child{
+    width: 17%;
+    justify-content: space-evenly;
+    border: none;
+    background-color: rebeccapurple;
+}
+
+main button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4vh;
+    height: 4vh;
+    padding: 0;
+    font-size: 2.5vh !important;
+    border-radius: 50%;
+    border: 0.4vh rgb(83, 58, 38) solid;
+    background-color: transparent;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+main button:hover{
+    border-color: #F79334;
+    color: #F79334;
+}
+
 @media screen and (max-width: 768px) {
     header > div:last-child{
         width: 40%;
     }
 
-    header > div:first-child > div , header input{
+    header > div:first-child > div , header input , main > div:first-child > div{
         font-size: 2vh !important;
     }
 
