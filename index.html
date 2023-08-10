@@ -20,8 +20,8 @@
 <body>
     <header>
         <div>
-            <div>Aggiungi</div>
-            <div>Ordina</div>
+            <div id="add">Aggiungi</div>
+            <div id="sort">Ordina</div>
         </div>
         <div>
             <input type="search" placeholder="Cerca qui..">
@@ -44,6 +44,35 @@
         <div>
         </div>
     </main>
+
+    <div id="menu">
+        <div>
+            <span id="title">Aggiungi</span>
+            <span id="icon" class="material-symbols-rounded">edit</span>
+        </div>
+        <div>
+            Nome
+            <input type="text" placeholder="Inserisci nome...">
+        </div>
+        <div>
+            Prezzo
+            <input type="number" placeholder="Prezzo in euro..." min="0">
+        </div>
+        <div>
+            Quantità
+            <input type="number" min="0" placeholder="Inserisci quantità...">
+        </div>
+        <div>
+            Origine
+            <input type="text" placeholder="Inserisci origine..." maxlength="4">
+        </div>
+        <div>
+            <button id="undo">Annulla</button>
+            <button id="save">Salva</button>
+        </div>
+        <span class="material-symbols-rounded">close</span>
+    </div>
+
     <footer>
         <b>Fatto da Bertolotti leonardo</b>
     </footer>

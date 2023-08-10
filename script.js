@@ -78,13 +78,20 @@ let data = [
 
 
 let main = document.querySelector("main > div:last-child");
+let menu = document.getElementById("menu");
+let inputs = menu.querySelectorAll("input");
 
 for (const item of data) {
+    item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
+
     let div = document.createElement("div");
 
-    for (let i = 0; i < 5; i++)
-        div.appendChild(document.createElement("div"));
-    
+    div.innerHTML = `
+        <div>${item.nome}</div>
+        <div>${item.prezzo}€</div>
+        <div>${item.qta}</div>
+        <div>${item.origine}</div>
+        <div></div>`;
 
     let editBtn = document.createElement("button");
     let removeBtn = document.createElement("button");
@@ -95,10 +102,16 @@ for (const item of data) {
     editBtn.className = removeBtn.className = "material-symbols-rounded";
 
     removeBtn.addEventListener("click", () => {
-        if (confirm("Vuoi eliminare questo prodotto?")) {
+        if (menu.style.top != "0px" && confirm("Vuoi eliminare questo prodotto?")) {
             div.remove();
             Array.splice();
-        }        
+        }
+    });
+
+    editBtn.addEventListener("click", () => {
+        if (menu.style.top != "0px") {
+            
+        }
     });
 
     div.lastChild.appendChild(editBtn);
@@ -106,3 +119,17 @@ for (const item of data) {
 
     main.appendChild(div);
 }
+
+menu.lastElementChild.addEventListener("click", () => {
+    menu.style.top = "-50vh";
+});
+
+document.getElementById("add").addEventListener("click", () => {
+    menu.style.top = "0px";
+});
+
+document.getElementById("sort").addEventListener("click", () => {
+    if (menu.style.top != "0px") {
+
+    }
+});

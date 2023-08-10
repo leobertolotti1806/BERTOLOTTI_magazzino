@@ -84,6 +84,8 @@ header > div:first-child > div{
     height: 100%;
     font-size: 2.5vh;
     border-right: 0.4vh #533a26 solid;
+    color: #533a26;
+    font-weight: bold;
     text-decoration: underline transparent;
     cursor: pointer;
     transition: text-decoration 0.4s, text-shadow 0.4s;
@@ -145,7 +147,7 @@ main{
     max-height: 70%;
     min-height: fit-content;
     border: 0.8vh rgb(83, 58, 38) solid;
-    border-radius: 3vh;
+    border-radius: 4vh;
     box-shadow: 1vh 1vh 1.5vh black;
     overflow: hidden;
 }
@@ -235,9 +237,115 @@ main button:hover{
     color: #F79334;
 }
 
-@media screen and (max-width: 940px) {
-    
+#menu{
+    position: absolute;
+    z-index: 10;
+    top: -50vh;
+    left: calc(50vw - 17.5vh);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 1vh;
+    width: 35vh;
+    height: 33vh;
+    border: 0.8vh rgb(83, 58, 38) solid;
+    color: #ffffff;
+    font-size: 2vh;
+    border-radius: 3vh;
+    box-shadow: 1vh 1vh 1.7vh black;
+    background-image: linear-gradient(to right, #ef8e38,#e16470, #a25c90, #565883);
+    transition: top 1s;
 }
+
+#menu > span{
+    position: absolute;
+    top: 1vh;
+    right: 1vh;
+    font-size: 3vh;
+    border-radius: 1vh;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+#menu > span:hover{
+    background-color: rgba(240, 50, 56, 0.8);
+    transform: scale(120%);
+}
+
+#menu > div{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-shadow: 0.3vh 0.3vh 0.5vh black;
+    width: 100%;
+}
+
+#menu > div:first-child{
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.8vh;
+    font-size: 2.2vh;
+    cursor: default;
+}
+
+#menu #icon{
+    font-size: 2.5vh;
+    border-radius: 50%;
+    padding: 0.2vh;
+    border: 0.35vh #ffffff solid;
+}
+
+#menu input{
+    padding: 0.5vh 1vh;
+    height: 2.5vh;
+    font-size: 1.6vh;
+    border-radius: 1vh;
+    font-family: "regular";
+    box-shadow: 0.3vh 0.3vh 0.5vh black;
+    border: 0.5vh #A8A5B1 outset;
+    outline: none;
+}
+
+#menu input::placeholder{
+    font-weight: 100;
+}
+
+#menu > div:last-of-type{
+    justify-content: space-around;
+}
+
+#menu #undo{
+    background-color: #F03238;
+}
+
+#menu #save{
+    background-color: #349e50;
+}
+
+#menu > div > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1vh;
+    width: 40%;
+    height: 4vh;
+    border: 0.4vh rgb(83, 58, 38) solid;
+    border-radius: 2vh;
+    font-size: 2vh;
+    font-family: "regular";
+    box-shadow: 0.5vh 0.5vh 1vh black;
+    background-color: #b04e34;
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+#menu > div > button:hover{
+    transform: scale(110%);
+    border-color: #ef8e38;
+}
+
 
 @media screen and (max-width: 768px) {
     header > div:last-child{
