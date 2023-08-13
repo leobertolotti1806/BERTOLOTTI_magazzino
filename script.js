@@ -79,19 +79,26 @@ let data = [
 
 let main = document.querySelector("main > div:last-child");
 let menu = document.getElementById("menu");
+let menuIcon = menu.querySelector("#icon");
+let menuTitle = menu.querySelector("span");
+let search = document.querySelector("input");
 let inputs = menu.querySelectorAll("input");
 
 for (const item of data) {
     item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
 
+    add(item);
+}
+
+function add(obj) {
     let div = document.createElement("div");
 
     div.innerHTML = `
-        <div>${item.nome}</div>
-        <div>${item.prezzo}€</div>
-        <div>${item.qta}</div>
-        <div>${item.origine}</div>
-        <div></div>`;
+            <div>${obj.nome}</div>
+            <div>${obj.prezzo}€</div>
+            <div>${obj.qta}</div>
+            <div>${obj.origine}</div>
+            <div></div>`;
 
     let editBtn = document.createElement("button");
     let removeBtn = document.createElement("button");
@@ -102,34 +109,66 @@ for (const item of data) {
     editBtn.className = removeBtn.className = "material-symbols-rounded";
 
     removeBtn.addEventListener("click", () => {
-        if (menu.style.top != "0px" && confirm("Vuoi eliminare questo prodotto?")) {
+        if (menu.style.top != "0px" && confirm(`Vuoi veramente eliminare ${obj.nome}?`)) {
             div.remove();
-            Array.splice();
+            data.splice(data.findIndex(el => el.nome == obj.nome), 1);
         }
     });
 
     editBtn.addEventListener("click", () => {
         if (menu.style.top != "0px") {
-            
+            menu.style.top = "0px";
+            menuIcon.textContent = "edit";
+            menuTitle.textContent = "Modifica";
         }
     });
 
     div.lastChild.appendChild(editBtn);
     div.lastChild.appendChild(removeBtn);
-
     main.appendChild(div);
 }
+
+search.addEventListener("input", () => {
+    console.log(search.value)
+});
 
 menu.lastElementChild.addEventListener("click", () => {
     menu.style.top = "-50vh";
 });
 
 document.getElementById("add").addEventListener("click", () => {
-    menu.style.top = "0px";
+    if (menu.style.top != "0px") {
+        menu.style.top = "0px";
+        menuTitle.textContent = "Aggiungi";
+        menuIcon.textContent = "add";
+    }
 });
 
 document.getElementById("sort").addEventListener("click", () => {
     if (menu.style.top != "0px") {
 
     }
+});
+
+menu.querySelector("#save").addEventListener("click", () => {
+    if (!data.some(el => el.nome.toLowerCase() == inputs[0].value.toLowerCase())) {
+        if (!(/[0-9]/).test(inputs[0].value)) {
+            if (inputs[0].value != "") {
+                if (inputs[1].value > 0) {
+                    if (inputs[2].value > 0) {
+                        if (!(/[0-9]/).test(inputs[3].value)) {
+                            if (inputs[3].value != "") {
+                                data.push({
+                                    nome: inputs[0].value,
+                                    prezzo: parseInt(inputs[1].value),
+                                    qta: parseInt(inputs[2].value),
+                                    origine: inputs[3].value
+                                });
+                            } else alert("Inserisci un' origine");
+                        } else alert(`L'origine di ${inputs[3].value} contiene numeri,\ninserisci un altro nome`);
+                    } else alert("Inserisci una quantità maggiore di 0");
+                } else alert("Inserisci un prezzo maggiore di 0€");
+            } else alert("Inserisci un nome");
+        } else alert(`Il nome ${inputs[0].value} contiene numeri,\ninserisci un altro nome`);
+    } else alert(`Il nome ${inputs[0].value} esiste già,\ninserisci un altro nome`);
 });

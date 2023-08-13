@@ -47,30 +47,30 @@
 
     <div id="menu">
         <div>
-            <span id="title">Aggiungi</span>
+            <span>Aggiungi</span>
             <span id="icon" class="material-symbols-rounded">edit</span>
         </div>
         <div>
             Nome
-            <input type="text" placeholder="Inserisci nome...">
+            <input type="text" maxlength="30" placeholder="Inserisci nome...">
         </div>
         <div>
             Prezzo
-            <input type="number" placeholder="Prezzo in euro..." min="0">
+            <input type="number" min="1" placeholder="Prezzo in euro...">
         </div>
         <div>
             Quantità
-            <input type="number" min="0" placeholder="Inserisci quantità...">
+            <input type="number" min="1" placeholder="Inserisci quantità...">
         </div>
         <div>
             Origine
-            <input type="text" placeholder="Inserisci origine..." maxlength="4">
+            <input type="text" maxlength="4" placeholder="Inserisci origine...">
         </div>
         <div>
             <button id="undo">Annulla</button>
             <button id="save">Salva</button>
         </div>
-        <span class="material-symbols-rounded">close</span>
+        <span id="close" class="material-symbols-rounded">close</span>
     </div>
 
     <footer>
