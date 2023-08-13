@@ -1,4 +1,4 @@
-::selection {
+::selection{
     background-color: #ef8e38;
     color: black;
 }
@@ -22,6 +22,10 @@
     background-image: linear-gradient(#3c80a8, #ac08af);
 }
 
+::-webkit-search-cancel-button{
+    display: none;
+}
+
 @font-face {
     font-family: "regular";
     src: url(./RedHatDisplay-Medium.otf);
@@ -38,12 +42,11 @@ body {
     background-image: linear-gradient(to right, #108dc7, #ef8e38);
 }
 
-footer>b {
+footer > b {
     font-size: 2vh;
 }
 
-header,
-footer {
+header , footer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,47 +60,85 @@ header {
     height: 7vh;
 }
 
-.pl {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 5px;
-    width: 380px;
-    height: 80px;
-    box-sizing: border-box;
-    border: 6px rgb(83, 58, 38) solid;
-    border-radius: 20px;
-    box-shadow: 6px 6px 10px black;
-    background-color: #b04e34;
-}
-
-header>div:first-child {
+header > div:first-child{
     display: flex;
     justify-content: space-around;
     width: 50%;
     height: 100%;
 }
 
-header>div:first-child>div {
+header > div:first-child > div{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 50%;
     height: 100%;
     font-size: 2.5vh;
-    border-right: 0.4vh #533a26 solid;
     color: #533a26;
     font-weight: bold;
-    text-decoration: underline transparent;
+    box-sizing: border-box;
     cursor: pointer;
+    text-decoration: underline transparent;
     transition: text-decoration 0.4s, text-shadow 0.4s;
 }
 
-header>div:first-child>div:hover {
+#sort > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+#sort{
+    position: relative;
+    display: inline-block;
+    border-right: 0.4vh #533a26 solid;
+}
+
+#sort > div:last-child {
+    z-index: 1;
+    position: absolute;
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+    box-shadow: 0.8vh 0.8vh 1vh black;
+    overflow: hidden;
+    background-color: #9DADBC;
+}
+
+#sort > div:last-child > div {
+    display: block;
+    padding: 1.5vh;
+    text-decoration: underline transparent;
+    transition: text-decoration 0.4s, transform 0.4s, background-color 0.4s;
+}
+
+#sort > div:last-child > div:hover{
     text-decoration: underline #533a26;
+    transform: translateX(1vh);
+}
+
+#sort:hover > div:last-child {
+    display: block;
+    width: calc(100% + 0.4vh);
+    border-right: 0.4vh #533a26 solid;
+    border-bottom: 0.4vh #533a26 solid;
+    border-bottom-right-radius: 3vh;
+}
+
+#sort:hover > div:first-child{
+    background-color: #8b99a5;
+}
+
+header > div:first-child > div:first-child:hover{
+    text-decoration: underline #533a26;
+    background-color: #8b99a5;
     text-shadow: 0.3vh 0.3vh 0.3vh rgba(0, 0, 0, 0.5);
 }
 
-header>div:last-child {
+header > div:last-child{
     display: flex;
     align-items: center;
     height: 60%;
@@ -109,7 +150,7 @@ header>div:last-child {
     overflow: hidden;
 }
 
-header>div:last-child>input {
+header > div:last-child > input{
     width: 80%;
     height: 100%;
     padding-left: 1vh;
@@ -121,15 +162,11 @@ header>div:last-child>input {
     background-color: transparent;
 }
 
-input::placeholder {
+input::placeholder{
     color: #533a26;
 }
 
-::-webkit-search-cancel-button {
-    display: none;
-}
-
-header>div:last-child>button {
+header > div:last-child > button{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -141,7 +178,7 @@ header>div:last-child>button {
     padding: 0;
 }
 
-main {
+main{
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -153,24 +190,24 @@ main {
     overflow: hidden;
 }
 
-main>div:first-child {
+main > div:first-child{
     display: flex;
     background-color: aliceblue;
 }
 
-main>div:first-child>#space {
+main > div:first-child > #space{
     width: 1.1vh;
     height: 100%;
     border: none;
 }
 
-main>div:first-child>div:first-child {
+main > div:first-child > div:first-child{
     display: flex;
     width: 100%;
     min-height: 7vh;
 }
 
-main>div:first-child>div:first-child>div {
+main > div:first-child > div:first-child > div{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,18 +217,18 @@ main>div:first-child>div:first-child>div {
     border-right: 0.4vh #533a26 solid;
 }
 
-main>div:first-child>div:first-child>div:last-child {
+main > div:first-child > div:first-child > div:last-child{
     border: none;
 }
 
-main>div:last-child {
+main > div:last-child{
     position: relative;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
 }
 
-main>div:last-child>div {
+main > div:last-child > div{
     display: flex;
     width: 100%;
     min-height: 7vh;
@@ -200,11 +237,11 @@ main>div:last-child>div {
     background-color: #B88865;
 }
 
-main>div:last-child>div:nth-child(2n) {
+main > div:last-child > div:nth-child(2n){
     background-color: #956846;
 }
 
-main>div:last-child>div>div {
+main > div:last-child > div > div{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,12 +250,12 @@ main>div:last-child>div>div {
     height: 100%;
 }
 
-main>div:last-child>div>div:last-child {
+main > div:last-child > div > div:last-child{
     justify-content: space-evenly;
     border: none;
 }
 
-main button {
+main button{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -233,12 +270,12 @@ main button {
     transition: color 0.2s, border-color 0.2s;
 }
 
-main button:hover {
+main button:hover{
     border-color: #F79334;
     color: #F79334;
 }
 
-#menu {
+#menu{
     position: absolute;
     z-index: 10;
     top: -50vh;
@@ -255,11 +292,11 @@ main button:hover {
     font-size: 2vh;
     border-radius: 3vh;
     box-shadow: 1vh 1vh 1.7vh black;
-    background-image: linear-gradient(to right, #ef8e38, #e16470, #a25c90, #565883);
+    background-image: linear-gradient(to right, #ef8e38,#e16470, #a25c90, #565883);
     transition: top 1s;
 }
 
-#menu>span {
+#menu > span{
     position: absolute;
     top: 1vh;
     right: 1vh;
@@ -269,12 +306,12 @@ main button:hover {
     transition: transform 0.3s, background-color 0.3s;
 }
 
-#menu>span:hover {
+#menu > span:hover{
     background-color: rgba(240, 50, 56, 0.8);
     transform: scale(120%);
 }
 
-#menu>div {
+#menu > div{
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -283,7 +320,7 @@ main button:hover {
     width: 100%;
 }
 
-#menu>div:first-child {
+#menu > div:first-child{
     align-items: flex-start;
     justify-content: flex-start;
     gap: 0.8vh;
@@ -291,14 +328,14 @@ main button:hover {
     cursor: default;
 }
 
-#menu #icon {
+#menu #icon{
     font-size: 2.5vh;
     border-radius: 50%;
     padding: 0.2vh;
     border: 0.35vh #ffffff solid;
 }
 
-#menu input {
+#menu input{
     padding: 0.5vh 1vh;
     height: 2.5vh;
     font-size: 1.6vh;
@@ -309,23 +346,23 @@ main button:hover {
     outline: none;
 }
 
-#menu input::placeholder {
+#menu input::placeholder{
     font-weight: 100;
 }
 
-#menu>div:last-of-type {
+#menu > div:last-of-type{
     justify-content: space-around;
 }
 
-#menu #undo {
+#menu #undo{
     background-color: #F03238;
 }
 
-#menu #save {
+#menu #save{
     background-color: #349e50;
 }
 
-#menu>div>button {
+#menu > div > button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -342,24 +379,22 @@ main button:hover {
     transition: border-color 0.3s, transform 0.3s;
 }
 
-#menu>div>button:hover {
+#menu > div > button:hover{
     transform: scale(110%);
     border-color: #ef8e38;
 }
 
 
 @media screen and (max-width: 768px) {
-    header>div:last-child {
+    header > div:last-child{
         width: 40%;
     }
 
-    header>div:first-child>div,
-    header input,
-    main>div:first-child>div {
+    header > div:first-child > div , header input , main > div:first-child > div{
         font-size: 2vh !important;
     }
 
-    main {
+    main{
         width: 90%;
     }
 }

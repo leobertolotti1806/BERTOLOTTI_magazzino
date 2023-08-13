@@ -84,6 +84,8 @@ let menuTitle = menu.querySelector("span");
 let search = document.querySelector("input");
 let inputs = menu.querySelectorAll("input");
 
+data.sort((x, y) => x.nome.local);
+
 for (const item of data) {
     item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
 
