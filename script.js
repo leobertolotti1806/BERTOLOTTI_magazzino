@@ -20,7 +20,6 @@ let main = document.querySelector("main > div:last-child");
 let menu = document.getElementById("menu");
 let menuIcon = menu.querySelector("#icon");
 let menuTitle = menu.querySelector("span");
-let search = document.querySelector("input");
 let inputs = menu.querySelectorAll("input");
 let old = "";
 
@@ -79,12 +78,34 @@ function add(obj) {
 
 for (const item of data) {
     item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
+    item.hide = false;
 
     add(item);
 }
 
-search.addEventListener("input", () => {
-    console.log(search.value)
+document.querySelector("input").addEventListener("input", function () {
+    let val = this.value.toLowerCase();
+
+    if (val != "") {
+        for (let i = 0; i < main.childElementCount; i++) {
+            let j = 0, record = main.children[i];
+
+            while (j < record.childElementCount - 1
+                && !record.children[j].textContent.toLowerCase().includes(val))
+                j++;
+
+            if (j == record.childElementCount - 1) {
+                record.style.display = "none";
+                data[i].hide = true;
+            } else {
+                record.style.display = "";
+                data[i].hide = false;
+            }
+        }
+    } else {
+        for (const record of main.children)
+            record.style.display = "";
+    }
 });
 
 menu.lastElementChild.onclick = menu.querySelector("#undo").onclick = () => {
@@ -112,10 +133,12 @@ document.querySelector("#sort > div:last-child").addEventListener("click", (e) =
         else data.sort((x, y) => y[e.target.id].localeCompare(x[e.target.id]));
 
         for (let i = 0; i < data.length; i++) {
-            main.children[i].children[0].textContent = data[i].nome;
-            main.children[i].children[1].textContent = data[i].prezzo + "€";
-            main.children[i].children[2].textContent = data[i].qta;
-            main.children[i].children[3].textContent = data[i].origine;
+            if (!data[i].hide) {
+                main.children[i].children[0].textContent = data[i].nome;
+                main.children[i].children[1].textContent = data[i].prezzo + "€";
+                main.children[i].children[2].textContent = data[i].qta;
+                main.children[i].children[3].textContent = data[i].origine;
+            }
         }
 
         e.target.classList.toggle("crescente");
