@@ -78,8 +78,7 @@ header > div:first-child > div{
     font-weight: bold;
     box-sizing: border-box;
     cursor: pointer;
-    text-decoration: underline transparent;
-    transition: text-decoration 0.4s, text-shadow 0.4s;
+    transition: text-decoration 0.3s, text-shadow 0.3s, background-color 0.3s;
 }
 
 #sort > div:first-child {
@@ -88,13 +87,14 @@ header > div:first-child > div{
     justify-content: center;
     height: 100%;
     cursor: pointer;
-    transition: background-color 0.4s;
+    transition: text-shadow 0.3s, background-color 0.3s;
 }
 
 #sort{
     position: relative;
     display: inline-block;
     border-right: 0.4vh #533a26 solid;
+    transition: text-shadow 0.3s;
 }
 
 #sort > div:last-child {
@@ -105,14 +105,14 @@ header > div:first-child > div{
     width: 100%;
     box-shadow: 0.8vh 0.8vh 1vh black;
     overflow: hidden;
-    background-color: #9DADBC;
+    background-color: #8b99a5;
 }
 
 #sort > div:last-child > div {
     display: block;
     padding: 1.5vh;
     text-decoration: underline transparent;
-    transition: text-decoration 0.4s, transform 0.4s, background-color 0.4s;
+    transition: text-decoration 0.3s, transform 0.3s;
 }
 
 #sort > div:last-child > div:hover{
@@ -128,14 +128,9 @@ header > div:first-child > div{
     border-bottom-right-radius: 3vh;
 }
 
-#sort:hover > div:first-child{
-    background-color: #8b99a5;
-}
-
-header > div:first-child > div:first-child:hover{
-    text-decoration: underline #533a26;
-    background-color: #8b99a5;
+#add:hover , #sort:hover > div:first-child{
     text-shadow: 0.3vh 0.3vh 0.3vh rgba(0, 0, 0, 0.5);
+    background-color: #8b99a5;
 }
 
 header > div:last-child{
@@ -247,6 +242,7 @@ main > div:last-child > div > div{
     justify-content: center;
     border-right: 0.4vh #533a26 solid;
     width: 20%;
+    font-size: 2vh;
     height: 100%;
 }
 
@@ -396,5 +392,49 @@ main button:hover{
 
     main{
         width: 90%;
+    }
+
+    main > div:last-child > div > div{
+        font-size: 1.8vh;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    main{
+        width: 92.5%;
+    }
+
+    main > div:first-child > div:first-child > div{
+        font-size: 1.7vh;
+    }
+
+    main > div:last-child > div > div{
+        font-size: 1.3vh;
+    }
+
+    main button{
+        width: 3vh;
+        height: 3vh;
+        font-size: 1.8vh !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    main > div:first-child > div:first-child > div{
+        font-size: 1.5vh;
+    }
+
+    main > div:last-child > div > div{
+        font-size: 1.1vh;
+    }
+
+    main button{
+        width: 2.4vh;
+        height: 2.4vh;
+        font-size: 1.4vh !important;
+    }
+
+    #sort , #add , header input::placeholder{
+        font-size: 1.5vh !important;
     }
 }
