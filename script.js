@@ -1,81 +1,20 @@
 let data = [
-    {
-        nome: "Microonde",
-        qta: 10,
-        origine: "ITA"
-    },
-    {
-        nome: "Pala",
-        qta: 4,
-        origine: "JPN"
-    },
-    {
-        nome: "Palla",
-        qta: 23,
-        origine: "IND"
-    },
-    {
-        nome: "Cuffie",
-        qta: 14,
-        origine: "ITA"
-    },
-    {
-        nome: "Bilanciere",
-        qta: 18,
-        origine: "JPN"
-    },
-    {
-        nome: "Tazza",
-        qta: 25,
-        origine: "GER"
-    },
-    {
-        nome: "Vaso",
-        qta: 22,
-        origine: "RUS"
-    },
-    {
-        nome: "Profumo",
-        qta: 52,
-        origine: "UK"
-    },
-    {
-        nome: "Bicicletta",
-        qta: 7,
-        origine: "CINA"
-    },
-    {
-        nome: "Pantaloni",
-        qta: 43,
-        origine: "ITA"
-    },
-    {
-        nome: "Cuscino",
-        qta: 3,
-        origine: "UK"
-    },
-    {
-        nome: "T-shirt",
-        qta: 14,
-        origine: "FRA"
-    },
-    {
-        nome: "Calcolatrice",
-        qta: 9,
-        origine: "USA"
-    },
-    {
-        nome: "Armadio",
-        qta: 25,
-        origine: "ITA"
-    },
-    {
-        nome: "Zaino",
-        qta: 10,
-        origine: "USA"
-    }
+    { nome: "Microonde", qta: 10, origine: "ITA" },
+    { nome: "Pala", qta: 4, origine: "JPN" },
+    { nome: "Palla", qta: 23, origine: "IND" },
+    { nome: "Cuffie", qta: 14, origine: "ITA" },
+    { nome: "Bilanciere", qta: 18, origine: "JPN" },
+    { nome: "Tazza", qta: 25, origine: "GER" },
+    { nome: "Vaso", qta: 22, origine: "RUS" },
+    { nome: "Profumo", qta: 52, origine: "UK" },
+    { nome: "Bicicletta", qta: 7, origine: "CINA" },
+    { nome: "Pantaloni", qta: 43, origine: "ITA" },
+    { nome: "Cuscino", qta: 3, origine: "UK" },
+    { nome: "T-shirt", qta: 14, origine: "FRA" },
+    { nome: "Calcolatrice", qta: 9, origine: "USA" },
+    { nome: "Armadio", qta: 25, origine: "ITA" },
+    { nome: "Zaino", qta: 10, origine: "USA" }
 ];
-
 
 let main = document.querySelector("main > div:last-child");
 let menu = document.getElementById("menu");
@@ -85,10 +24,13 @@ let search = document.querySelector("input");
 let inputs = menu.querySelectorAll("input");
 let old = "";
 
-for (const item of data) {
-    item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
+function closeMenu() {
+    menu.style.top = "-50vh";
 
-    add(item);
+    for (const input of inputs)
+        input.value = "";
+
+    old = "";
 }
 
 function add(obj) {
@@ -135,6 +77,12 @@ function add(obj) {
     main.appendChild(div);
 }
 
+for (const item of data) {
+    item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
+
+    add(item);
+}
+
 search.addEventListener("input", () => {
     console.log(search.value)
 });
@@ -144,15 +92,6 @@ menu.lastElementChild.onclick = menu.querySelector("#undo").onclick = () => {
         closeMenu();
 };
 
-function closeMenu() {
-    menu.style.top = "-50vh";
-
-    for (const input of inputs)
-        input.value = "";
-
-    old = "";
-}
-
 document.getElementById("add").addEventListener("click", () => {
     if (menu.style.top != "0px") {
         menu.style.top = "0px";
@@ -161,9 +100,25 @@ document.getElementById("add").addEventListener("click", () => {
     }
 });
 
-document.getElementById("sort").addEventListener("click", () => {
+document.querySelector("#sort > div:last-child").addEventListener("click", (e) => {
     if (menu.style.top != "0px") {
+        if (e.target.id == "prezzo" || e.target.id == "qta") {
+            if (e.target.className == "")
+                data.sort((x, y) => y[e.target.id] - x[e.target.id]);
+            else data.sort((x, y) => x[e.target.id] - y[e.target.id]);
 
+        } else if (e.target.className == "")
+            data.sort((x, y) => x[e.target.id].localeCompare(y[e.target.id]));
+        else data.sort((x, y) => y[e.target.id].localeCompare(x[e.target.id]));
+
+        for (let i = 0; i < data.length; i++) {
+            main.children[i].children[0].textContent = data[i].nome;
+            main.children[i].children[1].textContent = data[i].prezzo + "€";
+            main.children[i].children[2].textContent = data[i].qta;
+            main.children[i].children[3].textContent = data[i].origine;
+        }
+
+        e.target.classList.toggle("crescente");
     }
 });
 
@@ -177,12 +132,16 @@ menu.querySelector("#save").addEventListener("click", (e) => {
                             if (menuIcon.textContent == "add") {
                                 //aggiungi prodotto
                                 if (!data.some(el => el.nome.toLowerCase() == inputs[0].value.toLowerCase())) {
-                                    data.push({
+                                    let obj = {
                                         nome: inputs[0].value,
                                         prezzo: parseInt(inputs[1].value),
                                         qta: parseInt(inputs[2].value),
                                         origine: inputs[3].value
-                                    });
+                                    };
+
+                                    data.push(obj);
+
+                                    add(obj);
 
                                     closeMenu();
                                 } else alert(`Il nome ${inputs[0].value} esiste già,\ninserisci un altro nome`);
