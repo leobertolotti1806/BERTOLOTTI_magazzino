@@ -344,7 +344,11 @@ main button:hover{
 
 #menu input::placeholder{
     font-weight: 100;
+    text-transform: none;
 }
+
+#menu > div:nth-child(2) > input{ text-transform: capitalize; }
+#menu > div:nth-child(5) > input{ text-transform: uppercase; }
 
 #menu > div:last-of-type{
     justify-content: space-around;

@@ -83,10 +83,11 @@ let menuIcon = menu.querySelector("#icon");
 let menuTitle = menu.querySelector("span");
 let search = document.querySelector("input");
 let inputs = menu.querySelectorAll("input");
+let old = "";
 
 for (const item of data) {
     item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
-    
+
     add(item);
 }
 
@@ -120,6 +121,12 @@ function add(obj) {
             menu.style.top = "0px";
             menuIcon.textContent = "edit";
             menuTitle.textContent = "Modifica";
+
+            old = obj.nome.toLowerCase();
+            inputs[0].value = div.firstElementChild.textContent;
+            inputs[1].value = parseInt(div.children[1].textContent);
+            inputs[2].value = parseInt(div.children[2].textContent);
+            inputs[3].value = div.children[3].textContent;
         }
     });
 
@@ -132,9 +139,19 @@ search.addEventListener("input", () => {
     console.log(search.value)
 });
 
-menu.lastElementChild.addEventListener("click", () => {
+menu.lastElementChild.onclick = menu.querySelector("#undo").onclick = () => {
+    if (confirm("Cancellare le modifiche?"))
+        closeMenu();
+};
+
+function closeMenu() {
     menu.style.top = "-50vh";
-});
+
+    for (const input of inputs)
+        input.value = "";
+
+    old = "";
+}
 
 document.getElementById("add").addEventListener("click", () => {
     if (menu.style.top != "0px") {
@@ -150,25 +167,47 @@ document.getElementById("sort").addEventListener("click", () => {
     }
 });
 
-menu.querySelector("#save").addEventListener("click", () => {
-    if (!data.some(el => el.nome.toLowerCase() == inputs[0].value.toLowerCase())) {
-        if (!(/[0-9]/).test(inputs[0].value)) {
-            if (inputs[0].value != "") {
-                if (inputs[1].value > 0) {
-                    if (inputs[2].value > 0) {
-                        if (!(/[0-9]/).test(inputs[3].value)) {
-                            if (inputs[3].value != "") {
-                                data.push({
+menu.querySelector("#save").addEventListener("click", (e) => {
+    if (!(/[0-9]/).test(inputs[0].value)) {
+        if (inputs[0].value != "") {
+            if (inputs[1].value > 0) {
+                if (inputs[2].value > 0) {
+                    if (!(/[0-9]/).test(inputs[3].value)) {
+                        if (inputs[3].value != "") {
+                            if (menuIcon.textContent == "add") {
+                                //aggiungi prodotto
+                                if (!data.some(el => el.nome.toLowerCase() == inputs[0].value.toLowerCase())) {
+                                    data.push({
+                                        nome: inputs[0].value,
+                                        prezzo: parseInt(inputs[1].value),
+                                        qta: parseInt(inputs[2].value),
+                                        origine: inputs[3].value
+                                    });
+
+                                    closeMenu();
+                                } else alert(`Il nome ${inputs[0].value} esiste già,\ninserisci un altro nome`);
+                            } else if (confirm(`Vuoi veramente aggiornare ${old}?`)) {
+                                //modifica prodotto
+                                let ind = data.findIndex(el => el.nome.toLowerCase() == old);
+
+                                data[ind] = {
                                     nome: inputs[0].value,
                                     prezzo: parseInt(inputs[1].value),
                                     qta: parseInt(inputs[2].value),
                                     origine: inputs[3].value
-                                });
-                            } else alert("Inserisci un' origine");
-                        } else alert(`L'origine di ${inputs[3].value} contiene numeri,\ninserisci un altro nome`);
-                    } else alert("Inserisci una quantità maggiore di 0");
-                } else alert("Inserisci un prezzo maggiore di 0€");
-            } else alert("Inserisci un nome");
-        } else alert(`Il nome ${inputs[0].value} contiene numeri,\ninserisci un altro nome`);
-    } else alert(`Il nome ${inputs[0].value} esiste già,\ninserisci un altro nome`);
+                                }
+
+                                main.children[ind].children[0].textContent = inputs[0].value;
+                                main.children[ind].children[1].textContent = inputs[1].value + "€";
+                                main.children[ind].children[2].textContent = inputs[2].value;
+                                main.children[ind].children[3].textContent = inputs[3].value;
+
+                                closeMenu();
+                            }
+                        } else alert("Inserisci un' origine");
+                    } else alert(`L'origine di ${inputs[3].value} contiene numeri,\ninserisci un altro nome`);
+                } else alert("Inserisci una quantità maggiore di 0");
+            } else alert("Inserisci un prezzo maggiore di 0€");
+        } else alert("Inserisci un nome");
+    } else alert(`Il nome ${inputs[0].value} contiene numeri,\ninserisci un altro nome`);
 });
