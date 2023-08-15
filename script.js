@@ -192,9 +192,6 @@ menu.querySelector("#save").addEventListener("click", () => {
                                     show: true
                                 }
 
-                                console.log(data)
-                                console.log(ind)
-
                                 show();
 
                                 closeMenu();
