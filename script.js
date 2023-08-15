@@ -17,11 +17,26 @@ let data = [
 ];
 
 let main = document.querySelector("main > div:last-child");
+let search = document.querySelector("input");
 let menu = document.getElementById("menu");
 let menuIcon = menu.querySelector("#icon");
 let menuTitle = menu.querySelector("span");
 let inputs = menu.querySelectorAll("input");
-let old = "";
+let nome = "";
+
+function show() {
+    for (let i = 0; i < data.length; i++) {
+
+        if (data[i].show)
+            main.children[i].style.display = "";
+        else main.children[i].style.display = "none";
+
+        main.children[i].children[0].textContent = data[i].nome;
+        main.children[i].children[1].textContent = data[i].prezzo + "€";
+        main.children[i].children[2].textContent = data[i].qta;
+        main.children[i].children[3].textContent = data[i].origine;
+    }
+}
 
 function closeMenu() {
     menu.style.top = "-50vh";
@@ -29,7 +44,7 @@ function closeMenu() {
     for (const input of inputs)
         input.value = "";
 
-    old = "";
+    nome = "";
 }
 
 function add(obj) {
@@ -63,7 +78,7 @@ function add(obj) {
             menuIcon.textContent = "edit";
             menuTitle.textContent = "Modifica";
 
-            old = obj.nome.toLowerCase();
+            nome = div.firstElementChild.textContent.toLowerCase();
             inputs[0].value = div.firstElementChild.textContent;
             inputs[1].value = parseInt(div.children[1].textContent);
             inputs[2].value = parseInt(div.children[2].textContent);
@@ -77,14 +92,14 @@ function add(obj) {
 }
 
 for (const item of data) {
+    item.show = true;
     item.prezzo = Math.floor(Math.random() * (150 - 10 + 1)) + 10;
-    item.hide = false;
 
     add(item);
 }
 
-document.querySelector("input").addEventListener("input", function () {
-    let val = this.value.toLowerCase();
+search.addEventListener("input", () => {
+    let val = search.value.toLowerCase();
 
     if (val != "") {
         for (let i = 0; i < main.childElementCount; i++) {
@@ -96,16 +111,17 @@ document.querySelector("input").addEventListener("input", function () {
 
             if (j == record.childElementCount - 1) {
                 record.style.display = "none";
-                data[i].hide = true;
+                data[i].show = false;
             } else {
                 record.style.display = "";
-                data[i].hide = false;
+                data[i].show = true;
             }
         }
     } else {
         for (const record of main.children)
             record.style.display = "";
     }
+
 });
 
 menu.lastElementChild.onclick = menu.querySelector("#undo").onclick = () => {
@@ -123,29 +139,25 @@ document.getElementById("add").addEventListener("click", () => {
 
 document.querySelector("#sort > div:last-child").addEventListener("click", (e) => {
     if (menu.style.top != "0px") {
-        if (e.target.id == "prezzo" || e.target.id == "qta") {
+        let id = e.target.id;
+
+        if (id == "prezzo" || id == "qta") {
+
             if (e.target.className == "")
-                data.sort((x, y) => y[e.target.id] - x[e.target.id]);
-            else data.sort((x, y) => x[e.target.id] - y[e.target.id]);
+                data.sort((x, y) => x[id] - y[id]);//crescente
+            else data.sort((x, y) => y[id] - x[id]);//decrescente
 
         } else if (e.target.className == "")
-            data.sort((x, y) => x[e.target.id].localeCompare(y[e.target.id]));
-        else data.sort((x, y) => y[e.target.id].localeCompare(x[e.target.id]));
+            data.sort((x, y) => x[id].localeCompare(y[id]));//crescente
+        else data.sort((x, y) => y[id].localeCompare(x[id]));//decrescente
 
-        for (let i = 0; i < data.length; i++) {
-            if (!data[i].hide) {
-                main.children[i].children[0].textContent = data[i].nome;
-                main.children[i].children[1].textContent = data[i].prezzo + "€";
-                main.children[i].children[2].textContent = data[i].qta;
-                main.children[i].children[3].textContent = data[i].origine;
-            }
-        }
+        show();
 
         e.target.classList.toggle("crescente");
     }
 });
 
-menu.querySelector("#save").addEventListener("click", (e) => {
+menu.querySelector("#save").addEventListener("click", () => {
     if (!(/[0-9]/).test(inputs[0].value)) {
         if (inputs[0].value != "") {
             if (inputs[1].value > 0) {
@@ -168,21 +180,22 @@ menu.querySelector("#save").addEventListener("click", (e) => {
 
                                     closeMenu();
                                 } else alert(`Il nome ${inputs[0].value} esiste già,\ninserisci un altro nome`);
-                            } else if (confirm(`Vuoi veramente aggiornare ${old}?`)) {
+                            } else if (confirm(`Vuoi veramente aggiornare ${nome}?`)) {
                                 //modifica prodotto
-                                let ind = data.findIndex(el => el.nome.toLowerCase() == old);
+                                let ind = data.findIndex(el => el.nome.toLowerCase() == nome);
 
                                 data[ind] = {
                                     nome: inputs[0].value,
                                     prezzo: parseInt(inputs[1].value),
                                     qta: parseInt(inputs[2].value),
-                                    origine: inputs[3].value
+                                    origine: inputs[3].value,
+                                    show: true
                                 }
 
-                                main.children[ind].children[0].textContent = inputs[0].value;
-                                main.children[ind].children[1].textContent = inputs[1].value + "€";
-                                main.children[ind].children[2].textContent = inputs[2].value;
-                                main.children[ind].children[3].textContent = inputs[3].value;
+                                console.log(data)
+                                console.log(ind)
+
+                                show();
 
                                 closeMenu();
                             }
