@@ -99,29 +99,30 @@ for (const item of data) {
 }
 
 search.addEventListener("input", () => {
-    let val = search.value.toLowerCase();
+    if (menu.style.top != "0px") {
+        let val = search.value.toLowerCase();
 
-    if (val != "") {
-        for (let i = 0; i < main.childElementCount; i++) {
-            let j = 0, record = main.children[i];
+        if (val != "") {
+            for (let i = 0; i < main.childElementCount; i++) {
+                let j = 0, record = main.children[i];
 
-            while (j < record.childElementCount - 1
-                && !record.children[j].textContent.toLowerCase().includes(val))
-                j++;
+                while (j < record.childElementCount - 1
+                    && !record.children[j].textContent.toLowerCase().includes(val))
+                    j++;
 
-            if (j == record.childElementCount - 1) {
-                record.style.display = "none";
-                data[i].show = false;
-            } else {
-                record.style.display = "";
-                data[i].show = true;
+                if (j == record.childElementCount - 1) {
+                    record.style.display = "none";
+                    data[i].show = false;
+                } else {
+                    record.style.display = "";
+                    data[i].show = true;
+                }
             }
+        } else {
+            for (const record of main.children)
+                record.style.display = "";
         }
-    } else {
-        for (const record of main.children)
-            record.style.display = "";
     }
-
 });
 
 menu.lastElementChild.onclick = menu.querySelector("#undo").onclick = () => {
@@ -167,11 +168,15 @@ menu.querySelector("#save").addEventListener("click", () => {
                             if (menuIcon.textContent == "add") {
                                 //aggiungi prodotto
                                 if (!data.some(el => el.nome.toLowerCase() == inputs[0].value.toLowerCase())) {
+
+                                    search.value = "";
+
                                     let obj = {
                                         nome: inputs[0].value,
                                         prezzo: parseInt(inputs[1].value),
                                         qta: parseInt(inputs[2].value),
-                                        origine: inputs[3].value
+                                        origine: inputs[3].value.toUpperCase(),
+                                        show: true
                                     };
 
                                     data.push(obj);
@@ -188,7 +193,7 @@ menu.querySelector("#save").addEventListener("click", () => {
                                     nome: inputs[0].value,
                                     prezzo: parseInt(inputs[1].value),
                                     qta: parseInt(inputs[2].value),
-                                    origine: inputs[3].value,
+                                    origine: inputs[3].value.toUpperCase(),
                                     show: true
                                 }
 
